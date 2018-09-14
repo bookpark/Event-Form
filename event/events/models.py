@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from utils.custom_path import application_form_upload_path
+from utils.custom_path import application_form_upload_path, event_application_upload_path
 
 
 class Event(models.Model):
@@ -40,9 +40,15 @@ class Application(models.Model):
     email = models.EmailField(
         max_length=50,
     )
-    application = models.FileField()
-    logo = models.FileField()
-    business_license = models.FileField()
+    event_application = models.FileField(
+        upload_to=event_application_upload_path
+    )
+    logo = models.FileField(
+        upload_to=event_application_upload_path
+    )
+    business_license = models.FileField(
+        upload_to=event_application_upload_path
+    )
 
     # 행사 신청 기간이 지난 후 url로 접근해 신청을 해도 신청되지 않도록 save() 값 오버라이드
     def save(self, *args, **kwargs):
