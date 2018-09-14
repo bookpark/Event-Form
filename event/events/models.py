@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from utils.custom_path import application_form_upload_path
+
 
 class Event(models.Model):
     title = models.CharField(
@@ -9,7 +11,7 @@ class Event(models.Model):
     event_date = models.DateField()
     close_date = models.DateTimeField()
     application_form = models.FileField(
-        upload_to='application_form'
+        upload_to=application_form_upload_path
     )
 
     def is_past(self):
