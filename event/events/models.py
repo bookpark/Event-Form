@@ -2,16 +2,21 @@ from django.db import models
 from django.utils import timezone
 
 from utils.custom_path import application_form_upload_path, event_application_upload_path
+from utils.validators import validate_phone_number
 
 
 class Event(models.Model):
     title = models.CharField(
         max_length=30,
     )
+    poster = models.ImageField(
+        upload_to=application_form_upload_path,
+    )
+    description = models.TextField()
     event_date = models.DateField()
     close_date = models.DateTimeField()
     application_form = models.FileField(
-        upload_to=application_form_upload_path
+        upload_to=application_form_upload_path,
     )
 
     # 신청 종료 날짜가 지나면 True 값을 리턴
@@ -39,6 +44,10 @@ class Application(models.Model):
     )
     email = models.EmailField(
         max_length=50,
+    )
+    phone_number = models.CharField(
+        max_length=11,
+        validators=[validate_phone_number],
     )
     event_application = models.FileField(
         upload_to=event_application_upload_path
