@@ -26,6 +26,9 @@ for key, value in secrets.items():
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
+MEDIA_URL = '/media/'
+
 DEBUG = True
 
 ALLOWED_HOSTS = []

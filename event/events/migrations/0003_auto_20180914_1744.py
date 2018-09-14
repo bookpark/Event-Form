@@ -24,12 +24,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='application',
             name='business_license',
-            field=models.FileField(upload_to=utils.custom_path.business_license_upload_path),
+            field=models.FileField(upload_to=utils.custom_path.event_application_upload_path),
         ),
         migrations.AlterField(
             model_name='application',
             name='logo',
-            field=models.FileField(upload_to=utils.custom_path.company_logo_upload_path),
+            field=models.FileField(upload_to=utils.custom_path.event_application_upload_path),
         ),
         migrations.AlterField(
             model_name='event',
