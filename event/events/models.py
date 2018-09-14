@@ -8,12 +8,17 @@ class Event(models.Model):
     )
     event_date = models.DateField()
     close_date = models.DateTimeField()
-    application_form = models.FileField()
+    application_form = models.FileField(
+        upload_to='application_form'
+    )
 
     def is_past(self):
         if timezone.now() > self.close_date:
             return True
         return False
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 class Application(models.Model):

@@ -24,6 +24,8 @@ secrets = json.loads(open(SECRETS_PATH).read())
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
 
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
