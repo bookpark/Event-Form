@@ -14,6 +14,7 @@ class Event(models.Model):
         upload_to=application_form_upload_path
     )
 
+    # 신청 종료 날짜가 지나면 True 값을 리턴
     def is_past(self):
         if timezone.now() > self.close_date:
             return True
@@ -42,3 +43,12 @@ class Application(models.Model):
     application = models.FileField()
     logo = models.FileField()
     business_license = models.FileField()
+
+    # 행사 신청 기간이 지난 후 url로 접근해 신청을 해도 신청되지 않도록 save() 값 오버라이드
+    def save(self, *args, **kwargs):
+        if self.event.close_date < timezone.now():
+            raise Exception('행사 신청 가능 기간이 지났습니다')
+        super(Application, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.event} - {self.company}'
