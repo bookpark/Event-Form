@@ -18,11 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from events.views import event_list
+from events.views import event_list, event_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('events/', event_list, name='event-list')
+    path('events/', event_list, name='event-list'),
+    path('events/<int:pk>/details/', event_detail, name='event-detail'),
 ]
 
 urlpatterns += static(
