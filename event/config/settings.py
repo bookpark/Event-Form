@@ -13,28 +13,33 @@ import json
 import os
 import sys
 
+# Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 ROOT_DIR = os.path.dirname(BASE_DIR)
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRETS_PATH = os.path.join(ROOT_DIR, 'secrets.json')
 
+# Secrets
 secrets = json.loads(open(SECRETS_PATH).read())
 
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+# Static Paths
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 
+# Media Paths
 MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 MEDIA_URL = '/media/'
 
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
-# Application definition
-
+# Applications
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,8 +82,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,8 +90,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -105,19 +106,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
-
 LANGUAGE_CODE = 'ko-kr'
-
 TIME_ZONE = 'Asia/Seoul'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
-
-STATIC_URL = '/static/'
+# Debug
+DEBUG = True
