@@ -25,9 +25,15 @@ def event_detail(request, pk):
 def event_apply(request, pk):
     event = get_object_or_404(Event, pk=pk)
     if request.method == 'POST':
-        form = ApplicationForm(request.POST)
+        form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             application = form.save(commit=False)
             application.event = event
             application.save()
             return redirect('event-detail', pk=event.pk)
+    else:
+        form = ApplicationForm
+    context = {
+        'form': form,
+    }
+    return render(request, 'event_detail.html', context)
