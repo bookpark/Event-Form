@@ -12,7 +12,8 @@
     <p>{{ event.title }}</p>
     <p>{{ event.poster }}</p>
     <p>{{ event.description }}</p>
-    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    <form action="{% url 'event-apply' pk=event.pk %}" method="POST" enctype="multipart/form-data"
+          class="form-horizontal">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group{% if field.errors %} has-error{% endif %}">
